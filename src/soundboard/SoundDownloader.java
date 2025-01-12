@@ -54,21 +54,22 @@ public class SoundDownloader {
         }
     }
 
-    public void downloadFavorites(List<Sound> sounds) throws Exception {
-        Connection.Response favoritesResponse = Jsoup.connect(PROFILE_URL)
+    public void downloadProfile(List<Sound> sounds) throws Exception {
+        assert PROFILE_URL != null;
+        Connection.Response profileResponse = Jsoup.connect(PROFILE_URL)
                 .cookies(cookies)
                 .method(Connection.Method.GET)
                 .execute();
 
-        if (favoritesResponse.statusCode() == 200) {
-            System.out.println(favoritesResponse.body());
+        if (profileResponse.statusCode() == 200) {
+            System.out.println(profileResponse.body());
         } else {
             System.out.println("nope");
         }
 
-        Document favoritesPage = favoritesResponse.parse();
+        Document profilePage = profileResponse.parse();
 
-        Elements playButtons = favoritesPage.select(".small-button");
+        Elements playButtons = profilePage.select(".small-button");
 
         String regex = "onclick=\"play\\('([^']+)'[^\"]*\" title=\"Play (.+?) sound\"";
         Pattern pattern = Pattern.compile(regex);

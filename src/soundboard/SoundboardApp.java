@@ -9,8 +9,8 @@ import java.util.List;
 public class SoundboardApp {
     public static void main(String[] args) throws Exception {
         SoundDownloader sd = new SoundDownloader();
-        List<Sound> sounds = new ArrayList<Sound>();
-        sd.downloadFavorites(sounds);
+        List<Sound> sounds = new ArrayList<>();
+        sd.downloadProfile(sounds);
         new SoundboardGUI();
     }
 }
