@@ -34,15 +34,18 @@ public class SoundboardGUI extends JFrame {
         soundPlayer = new SoundPlayer();
 
         mainGUI = new JFrame();
-        menuPanel = new JPanel();
+        menuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         soundPanel = new JPanel(new GridLayout(0, 2));
+
         mainGUI.setTitle("Soundboard");
         ImageIcon img = new ImageIcon("audio-waves.png");
         mainGUI.setIconImage(img.getImage());
         mainGUI.setSize(800, 600);
         mainGUI.setLocationRelativeTo(null);
 
+        menuPanel.setBackground(Color.decode("#3e3e42"));
         addMenu();
+        soundPanel.setBackground(Color.decode("#252526"));
         addFrameWithSounds(sounds);
 
         KeyPressHandler keyPressHandler = new KeyPressHandler(soundPlayer);
@@ -61,40 +64,70 @@ public class SoundboardGUI extends JFrame {
         for (Sound sound : sounds) {
             addSoundButton(sound, soundPanel);
         }
-        mainGUI.add(soundPanel);
+        mainGUI.getContentPane().add(soundPanel, BorderLayout.CENTER);
+        mainGUI.pack();
+        soundPanel.revalidate();
+        soundPanel.repaint();
     }
 
     private void addSoundButton(Sound sound, JPanel soundPanel) {
         JButton button = new JButton(sound.getName());
+        button.setBackground(Color.decode("#1e1e1e"));
+        button.setForeground(Color.decode("#007acc"));
+        button.setBorder(BorderFactory.createBevelBorder(0));
+        button.setFocusable(false);
         button.addActionListener(e -> {
             soundPlayer.playSound(sound.getFilePath());
             soundPanel.requestFocus(); // Ensure mainGUI retains focus after button click
         });
+
+        FontMetrics metrics = button.getFontMetrics(button.getFont());
+        int width = metrics.stringWidth(sound.getName()) + 20;
+        int height = metrics.getHeight() + 10;
+        button.setPreferredSize(new Dimension(width, height));
+
         soundPanel.add(button);
     }
 
     private void addMenu() {
-        addUpdateSongsButton(menuPanel);
+        addEnterProfileUrlButton(menuPanel);
+        addSynchronizeSongsButton(menuPanel);
 
         mainGUI.add(menuPanel, BorderLayout.NORTH);
     }
 
-    private void addUpdateSongsButton(JPanel menuPanel) {
-        JButton downloadButton = new JButton("Download");
-        downloadButton.addActionListener(e -> {
+    private void addEnterProfileUrlButton(JPanel menuPanel) {
+        JButton button = new JButton("Enter Profile URL");
+        button.setBackground(Color.decode("#2d2d30"));
+        button.setForeground(Color.decode("#007AAC"));
+        button.setBorder(BorderFactory.createBevelBorder(0));
+        button.setFocusable(false);
+        button.setPreferredSize(new Dimension(150, 30));
+        button.addActionListener(e -> {
+
+        });
+        menuPanel.add(button);
+    }
+
+    private void addSynchronizeSongsButton(JPanel menuPanel) {
+        JButton button = new JButton("Synchronize Sounds");
+        button.setBackground(Color.decode("#2d2d30"));
+        button.setForeground(Color.decode("#007AAC"));
+        button.setBorder(BorderFactory.createBevelBorder(0));
+        button.setFocusable(false);
+        button.setPreferredSize(new Dimension(150, 30));
+        button.addActionListener(e -> {
             soundController.synchronizeSounds();
             updateGUI();
         });
 
-        menuPanel.add(downloadButton);
+        menuPanel.add(button);
     }
 
     private void updateGUI() {
         mainGUI.getContentPane().remove(soundPanel);
         List<Sound> sounds = soundController.getSounds();
         addFrameWithSounds(sounds);
-        soundPanel.revalidate();
-        soundPanel.repaint();
     }
 
     private class SoundboardWindowListener extends WindowAdapter {
