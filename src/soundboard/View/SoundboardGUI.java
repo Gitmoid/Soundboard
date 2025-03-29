@@ -2,11 +2,12 @@ package soundboard.View;
 
 import soundboard.controllers.KeyPressHandler;
 import soundboard.controllers.SoundController;
-import soundboard.domain.Sound;
 import soundboard.controllers.SoundPlayer;
+import soundboard.domain.Sound;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
@@ -96,27 +97,29 @@ public class SoundboardGUI extends JFrame {
         mainGUI.add(menuPanel, BorderLayout.NORTH);
     }
 
-    private void addEnterProfileUrlButton(JPanel menuPanel) {
-        JButton button = new JButton("Enter Profile URL");
+    private JButton createMenuButton(String text, ActionListener actionListener) {
+        JButton button = new JButton(text);
         button.setBackground(Color.decode("#2d2d30"));
         button.setForeground(Color.decode("#007AAC"));
         button.setBorder(BorderFactory.createBevelBorder(0));
         button.setFocusable(false);
         button.setPreferredSize(new Dimension(150, 30));
-        button.addActionListener(e -> {
+        button.addActionListener(actionListener);
+        return button;
+    }
 
+    private void addEnterProfileUrlButton(JPanel menuPanel) {
+        JButton button = createMenuButton("Enter Profile URL",
+                e -> {
+            // enter profile url
         });
+
         menuPanel.add(button);
     }
 
     private void addSynchronizeSongsButton(JPanel menuPanel) {
-        JButton button = new JButton("Synchronize Sounds");
-        button.setBackground(Color.decode("#2d2d30"));
-        button.setForeground(Color.decode("#007AAC"));
-        button.setBorder(BorderFactory.createBevelBorder(0));
-        button.setFocusable(false);
-        button.setPreferredSize(new Dimension(150, 30));
-        button.addActionListener(e -> {
+        JButton button = createMenuButton("Synchronize Sounds",
+                e -> {
             soundController.synchronizeSounds();
             updateGUI();
         });
