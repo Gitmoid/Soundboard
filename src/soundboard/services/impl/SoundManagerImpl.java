@@ -132,7 +132,6 @@ public class SoundManagerImpl implements SoundManager {
             }
 
             if (jsonFile.createNewFile()) {
-                System.out.println("New JSON file created successfully.");
                 return true;
             } else {
                 System.err.println("Failed to create the new JSON file.");

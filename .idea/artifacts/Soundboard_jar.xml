@@ -1,11 +1,15 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="Soundboard:jar">
+  <artifact name="Soundboard:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Soundboard_jar</output-path>
-    <root id="archive" name="Soundboard.jar">
-      <element id="module-output" name="Soundboard" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jsoup-1.18.3.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/sqlite-jdbc-3.7.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jlayer-1.0.1.jar" path-in-jar="/" />
+    <root id="root">
+      <element id="archive" name="Soundboard.jar">
+        <element id="module-output" name="Soundboard" />
+      </element>
+      <element id="library" level="project" name="gson-2.12.1" />
+      <element id="library" level="project" name="jsoup-1.18.3" />
+      <element id="library" level="project" name="jlayer-1.0.1" />
+      <element id="library" level="project" name="jna-5.16.0" />
+      <element id="library" level="project" name="sqlite-jdbc-3.7.2" />
     </root>
   </artifact>
 </component>

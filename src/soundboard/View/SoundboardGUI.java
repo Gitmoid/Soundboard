@@ -14,6 +14,8 @@ import java.util.List;
 public class SoundboardGUI extends JFrame {
 
     private JFrame mainGUI;
+    private JPanel menuPanel;
+    private JPanel soundPanel;
     private SoundPlayer soundPlayer;
     private final SoundController soundController;
 
@@ -32,14 +34,16 @@ public class SoundboardGUI extends JFrame {
         soundPlayer = new SoundPlayer();
 
         mainGUI = new JFrame();
+        menuPanel = new JPanel();
+        soundPanel = new JPanel(new GridLayout(0, 2));
         mainGUI.setTitle("Soundboard");
         ImageIcon img = new ImageIcon("audio-waves.png");
         mainGUI.setIconImage(img.getImage());
         mainGUI.setSize(800, 600);
         mainGUI.setLocationRelativeTo(null);
-        mainGUI.setLayout(new GridLayout(0, 2));
+
+        addMenu();
         addFrameWithSounds(sounds);
-        addUpdateSongsButton();
 
         KeyPressHandler keyPressHandler = new KeyPressHandler(soundPlayer);
         mainGUI.addKeyListener(keyPressHandler);
@@ -53,39 +57,44 @@ public class SoundboardGUI extends JFrame {
     }
 
     private void addFrameWithSounds(List<Sound> sounds) {
-        JPanel soundsPanel = new JPanel(new GridLayout(0, 2));
-        soundsPanel.removeAll();
+        soundPanel.removeAll();
         for (Sound sound : sounds) {
-            addSoundButton(sound, soundsPanel);
+            addSoundButton(sound, soundPanel);
         }
-        mainGUI.add(soundsPanel);
+        mainGUI.add(soundPanel);
     }
 
-    private void addSoundButton(Sound sound, JPanel soundsPanel) {
+    private void addSoundButton(Sound sound, JPanel soundPanel) {
         JButton button = new JButton(sound.getName());
         button.addActionListener(e -> {
             soundPlayer.playSound(sound.getFilePath());
-            soundsPanel.requestFocus(); // Ensure mainGUI retains focus after button click
+            soundPanel.requestFocus(); // Ensure mainGUI retains focus after button click
         });
-        soundsPanel.add(button);
+        soundPanel.add(button);
     }
 
-    private void addUpdateSongsButton() {
+    private void addMenu() {
+        addUpdateSongsButton(menuPanel);
+
+        mainGUI.add(menuPanel, BorderLayout.NORTH);
+    }
+
+    private void addUpdateSongsButton(JPanel menuPanel) {
         JButton downloadButton = new JButton("Download");
         downloadButton.addActionListener(e -> {
             soundController.synchronizeSounds();
             updateGUI();
         });
-        mainGUI.getContentPane().add(downloadButton);
+
+        menuPanel.add(downloadButton);
     }
 
     private void updateGUI() {
-        mainGUI.getContentPane().removeAll();
+        mainGUI.getContentPane().remove(soundPanel);
         List<Sound> sounds = soundController.getSounds();
         addFrameWithSounds(sounds);
-        addUpdateSongsButton();
-        mainGUI.revalidate();
-        mainGUI.repaint();
+        soundPanel.revalidate();
+        soundPanel.repaint();
     }
 
     private class SoundboardWindowListener extends WindowAdapter {

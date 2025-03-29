@@ -16,7 +16,7 @@ public class ProfileFetcherImpl implements ProfileFetcher {
     private static final String LOGIN_URL = "https://www.myinstants.com/accounts/login";
     private static final String FAVORITES_URL = "https://www.myinstants.com/en/favorites/";
     private static final String BASE_URL = "https://www.myinstants.com";
-    private static final String PROFILE_URL = returnStringUrlFromFile();
+    //private static final String PROFILE_URL = returnStringUrlFromFile();
     private static final String SOUND_FILES_FOLDER = "src/SoundFiles/";
 
     private final Map<String, String> cookies = new HashMap<>();
@@ -48,6 +48,7 @@ public class ProfileFetcherImpl implements ProfileFetcher {
     @Override
     public List<Sound> getOnlineSounds() {
         List<Sound> onlineSounds = new ArrayList<>();
+        String PROFILE_URL = returnStringUrlFromFile();
         assert PROFILE_URL != null;
 
         try {

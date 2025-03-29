@@ -1,3 +1,5 @@
 Manifest-Version: 1.0
 Main-Class: soundboard.SoundboardApp
+Class-Path: gson-2.12.1.jar jsoup-1.18.3.jar jlayer-1.0.1.jar sqlite-jdb
+ c-3.7.2.jar
 

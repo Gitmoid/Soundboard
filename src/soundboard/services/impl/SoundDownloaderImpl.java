@@ -36,7 +36,6 @@ public class SoundDownloaderImpl implements SoundDownloader {
                     out.write(buffer, 0, bytesRead);
                 }
             }
-            System.out.println("Downloaded: " + fileName);
 
         } catch (Exception e) {
             System.err.println("Download failed: " + e.getMessage());
