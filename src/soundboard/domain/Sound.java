@@ -1,4 +1,4 @@
-package soundboard.Repository;
+package soundboard.domain;
 
 public class Sound {
     private String name;
@@ -16,7 +16,7 @@ public class Sound {
     }
 
     public Sound(String name, String filePath, String fileName, String url) {
-        this(name, filePath, url, fileName, null);
+        this(name, filePath, fileName, url, null);
     }
 
     public Sound(String name, String filePath) {
@@ -39,7 +39,7 @@ public class Sound {
         this.filePath = filePath;
     }
 
-    public int getAudioDurationInSeconds() {
+    public Integer getAudioDurationInSeconds() {
         return audioDurationInSeconds;
     }
 

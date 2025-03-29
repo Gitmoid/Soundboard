@@ -10,5 +10,8 @@
     <orderEntry type="library" name="jlayer-1.0.1" level="project" />
     <orderEntry type="library" name="sqlite-jdbc-3.7.2" level="project" />
     <orderEntry type="library" name="jsoup-1.18.3" level="project" />
+    <orderEntry type="library" name="jnativehook-2.2.2" level="project" />
+    <orderEntry type="library" name="jna-5.16.0" level="project" />
+    <orderEntry type="library" name="gson-2.10.1" level="project" />
   </component>
 </module>

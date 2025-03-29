@@ -1,4 +1,4 @@
-package soundboard.SoundPlayer;
+package soundboard.controllers;
 
 import java.io.FileInputStream;
 

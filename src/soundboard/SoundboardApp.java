@@ -1,16 +1,13 @@
 package soundboard;
 
-import soundboard.GUI.SoundboardGUI;
-import soundboard.Repository.Sound;
-
-import java.util.ArrayList;
-import java.util.List;
+import soundboard.View.SoundboardGUI;
 
 public class SoundboardApp {
     public static void main(String[] args) throws Exception {
-        SoundDownloader sd = new SoundDownloader();
-        List<Sound> sounds = new ArrayList<>();
-        sd.downloadProfile(sounds);
+        initializeApp();
+    }
+
+    public static void initializeApp() {
         new SoundboardGUI();
     }
 }
