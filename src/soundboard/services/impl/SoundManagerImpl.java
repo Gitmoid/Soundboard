@@ -102,7 +102,7 @@ public class SoundManagerImpl implements SoundManager {
             }
         }
 
-        newLocalSounds.sort(Comparator.comparing(Sound::getName));
+        newLocalSounds.sort(Comparator.comparing(sound -> sound.getName().toLowerCase()));
         updatedLocalSounds.clear();
         updatedLocalSounds.addAll(newLocalSounds);
         saveLocalSoundObjectsToJsonFile();
