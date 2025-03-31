@@ -33,37 +33,36 @@ public class SoundboardGUI extends JFrame {
         menuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         soundPanel = new JPanel(new GridLayout(0, 2));
 
+        // GUI BEHAVIOUR
         mainGUI.setTitle("Soundboard");
         ImageIcon img = new ImageIcon("audio-waves.png");
         mainGUI.setIconImage(img.getImage());
-        mainGUI.setSize(800, 600);
-        mainGUI.setLocationRelativeTo(null);
+        mainGUI.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        mainGUI.addWindowListener(new SoundboardWindowListener());
 
+        // ADD MENU
         menuPanel.setBackground(Color.decode("#3e3e42"));
         addMenu();
         soundPanel.setBackground(Color.decode("#252526"));
         addFrameWithSounds(sounds);
 
+        // KEYPRESS HANDLING
         // KeyPressHandler keyPressHandler = new KeyPressHandler(soundPlayer);
         // mainGUI.addKeyListener(keyPressHandler);
-        mainGUI.setFocusable(true);
-        mainGUI.requestFocusInWindow();
-        mainGUI.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        mainGUI.addWindowListener(new SoundboardWindowListener());
+        //mainGUI.setFocusable(true);
+        //mainGUI.requestFocusInWindow();
 
+        // DISPLAY GUI IN FULLSCREEN
         mainGUI.pack();
+        mainGUI.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainGUI.setVisible(true);
     }
 
     private void addFrameWithSounds(List<Sound> sounds) {
-        soundPanel.removeAll();
         for (Sound sound : sounds) {
             addSoundButton(sound, soundPanel);
         }
         mainGUI.getContentPane().add(soundPanel, BorderLayout.CENTER);
-        mainGUI.pack();
-        soundPanel.revalidate();
-        soundPanel.repaint();
     }
 
     private void addSoundButton(Sound sound, JPanel soundPanel) {
@@ -89,6 +88,8 @@ public class SoundboardGUI extends JFrame {
         addEnterProfileUrlButton(menuPanel);
         addSynchronizeSongsButton(menuPanel);
         addEditPlaybackDelay(menuPanel);
+        //addReplayButton(menuPanel);
+        //addStopButton(menuPanel);
 
         mainGUI.add(menuPanel, BorderLayout.NORTH);
     }
@@ -133,9 +134,13 @@ public class SoundboardGUI extends JFrame {
     }
 
     private void updateGUI() {
-        mainGUI.getContentPane().remove(soundPanel);
+        soundPanel.removeAll();
         List<Sound> sounds = soundController.getSounds();
-        addFrameWithSounds(sounds);
+        for (Sound sound : sounds) {
+            addSoundButton(sound, soundPanel);
+        }
+        soundPanel.revalidate();
+        soundPanel.repaint();
     }
 
     private class SoundboardWindowListener extends WindowAdapter {
