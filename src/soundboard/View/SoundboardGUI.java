@@ -1,8 +1,6 @@
 package soundboard.View;
 
-import soundboard.controllers.KeyPressHandler;
 import soundboard.controllers.SoundController;
-import soundboard.controllers.SoundPlayer;
 import soundboard.domain.Sound;
 
 import javax.swing.*;
@@ -17,7 +15,6 @@ public class SoundboardGUI extends JFrame {
     private JFrame mainGUI;
     private JPanel menuPanel;
     private JPanel soundPanel;
-    private SoundPlayer soundPlayer;
     private final SoundController soundController;
 
     public SoundboardGUI() {
@@ -32,8 +29,6 @@ public class SoundboardGUI extends JFrame {
     }
 
     private void initializeGUI(List<Sound> sounds) {
-        soundPlayer = new SoundPlayer();
-
         mainGUI = new JFrame();
         menuPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         soundPanel = new JPanel(new GridLayout(0, 2));
@@ -49,8 +44,8 @@ public class SoundboardGUI extends JFrame {
         soundPanel.setBackground(Color.decode("#252526"));
         addFrameWithSounds(sounds);
 
-        KeyPressHandler keyPressHandler = new KeyPressHandler(soundPlayer);
-        mainGUI.addKeyListener(keyPressHandler);
+        // KeyPressHandler keyPressHandler = new KeyPressHandler(soundPlayer);
+        // mainGUI.addKeyListener(keyPressHandler);
         mainGUI.setFocusable(true);
         mainGUI.requestFocusInWindow();
         mainGUI.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -78,7 +73,7 @@ public class SoundboardGUI extends JFrame {
         button.setBorder(BorderFactory.createBevelBorder(0));
         button.setFocusable(false);
         button.addActionListener(e -> {
-            soundPlayer.playSound(sound.getFilePath());
+            soundController.playSound(sound);
             soundPanel.requestFocus(); // Ensure mainGUI retains focus after button click
         });
 
@@ -93,6 +88,7 @@ public class SoundboardGUI extends JFrame {
     private void addMenu() {
         addEnterProfileUrlButton(menuPanel);
         addSynchronizeSongsButton(menuPanel);
+        addEditPlaybackDelay(menuPanel);
 
         mainGUI.add(menuPanel, BorderLayout.NORTH);
     }
@@ -123,6 +119,15 @@ public class SoundboardGUI extends JFrame {
             soundController.synchronizeSounds();
             updateGUI();
         });
+
+        menuPanel.add(button);
+    }
+
+    private void addEditPlaybackDelay(JPanel menuPanel) {
+        JButton button = createMenuButton("Edit Playback Delay",
+                e -> {
+                    // enter delay in ms
+                });
 
         menuPanel.add(button);
     }
