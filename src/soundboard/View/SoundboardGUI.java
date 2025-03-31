@@ -85,11 +85,11 @@ public class SoundboardGUI extends JFrame {
     }
 
     private void addMenu() {
-        addEnterProfileUrlButton(menuPanel);
+        addReplayButton(menuPanel);
+        addStopButton(menuPanel);
         addSynchronizeSongsButton(menuPanel);
         addEditPlaybackDelay(menuPanel);
-        //addReplayButton(menuPanel);
-        //addStopButton(menuPanel);
+        addEnterProfileUrlButton(menuPanel);
 
         mainGUI.add(menuPanel, BorderLayout.NORTH);
     }
@@ -105,12 +105,18 @@ public class SoundboardGUI extends JFrame {
         return button;
     }
 
-    private void addEnterProfileUrlButton(JPanel menuPanel) {
-        JButton button = createMenuButton("Enter Profile URL",
+    private void addReplayButton(JPanel menuPanel) {
+        JButton button = createMenuButton("Replay",
                 e -> {
-            // enter profile url
-        });
+                    // replay last song
+                });
 
+        menuPanel.add(button);
+    }
+
+    private void addStopButton(JPanel menuPanel) {
+        JButton button = createMenuButton("Stop",
+                e -> soundController.stopSound());
         menuPanel.add(button);
     }
 
@@ -128,6 +134,15 @@ public class SoundboardGUI extends JFrame {
         JButton button = createMenuButton("Edit Playback Delay",
                 e -> {
                     // enter delay in ms
+                });
+
+        menuPanel.add(button);
+    }
+
+    private void addEnterProfileUrlButton(JPanel menuPanel) {
+        JButton button = createMenuButton("Enter Profile URL",
+                e -> {
+                    // enter profile url
                 });
 
         menuPanel.add(button);

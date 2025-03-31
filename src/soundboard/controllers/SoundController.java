@@ -29,4 +29,8 @@ public class SoundController {
     public void playSound(Sound sound) {
         soundPlayerImpl.playSound(sound.getFilePath());
     }
+
+    public void stopSound() {
+        soundPlayerImpl.stopSound();
+    }
 }
