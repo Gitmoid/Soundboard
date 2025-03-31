@@ -46,7 +46,7 @@ public class SoundboardGUI extends JFrame {
         soundPanel.setBackground(Color.decode("#252526"));
         addFrameWithSounds(sounds);
 
-        // KEYPRESS HANDLING
+        // TODO KEYPRESS HANDLING
         // KeyPressHandler keyPressHandler = new KeyPressHandler(soundPlayer);
         // mainGUI.addKeyListener(keyPressHandler);
         //mainGUI.setFocusable(true);
@@ -57,6 +57,17 @@ public class SoundboardGUI extends JFrame {
         mainGUI.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainGUI.setVisible(true);
     }
+
+    // TODO:
+    //  - add right click functionality for song buttons
+    //      - change sound names
+    //      - change sound file names?
+    //          - need to track original file name and updated file name when checking if file is downloaded
+    //          - add method that will rename the files
+    //      - favorite songs?
+    //          - add keyboard shortcuts to them
+    //          - figure out how to handle key press even when window is not in focus
+
 
     private void addFrameWithSounds(List<Sound> sounds) {
         for (Sound sound : sounds) {
@@ -108,7 +119,7 @@ public class SoundboardGUI extends JFrame {
     private void addReplayButton(JPanel menuPanel) {
         JButton button = createMenuButton("Replay",
                 e -> {
-                    // replay last song
+                    // TODO replay last song
                 });
 
         menuPanel.add(button);
@@ -133,7 +144,7 @@ public class SoundboardGUI extends JFrame {
     private void addEditPlaybackDelay(JPanel menuPanel) {
         JButton button = createMenuButton("Edit Playback Delay",
                 e -> {
-                    // enter delay in ms
+                    // TODO enter delay in ms
                 });
 
         menuPanel.add(button);
@@ -142,7 +153,7 @@ public class SoundboardGUI extends JFrame {
     private void addEnterProfileUrlButton(JPanel menuPanel) {
         JButton button = createMenuButton("Enter Profile URL",
                 e -> {
-                    // enter profile url
+                    // TODO enter profile url
                 });
 
         menuPanel.add(button);
